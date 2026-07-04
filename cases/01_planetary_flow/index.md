@@ -31,6 +31,11 @@ $$
 
 where $W \in \mathfrak{su}(N)$ is the vorticity matrix, $P \in \mathfrak{su}(N)$ is the stream matrix and $\Delta_N$ a discrete Laplacian. System (1.1) preserves $\text{Tr}(W^k)$ for $k=1,...,N$, which corresponds to the integrated powers of vorticity in the continuum. 
 
+From a numerical standpoint, the three main components are:
+
+* the computation of matrix multiplications stemming from the commutator,
+* the construction of the Lie-algebra basis,
+* the computation of the inverse Laplacian.
 
 
 
