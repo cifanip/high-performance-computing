@@ -37,6 +37,7 @@ From a numerical standpoint, the three main components are:
 * the construction of the Lie-algebra basis,
 * the computation of the inverse Laplacian.
 
+The matrix multipliucation will dominate the computatinal complexity being $\mathcal{O}(N^3)$. The other two points require the solution of eigenvalue problem and of a linear system. 
 
 
 
