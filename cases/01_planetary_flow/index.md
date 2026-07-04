@@ -5,7 +5,7 @@ layout: default
 
 # Planetary Flow
 
-This sections summarizes ...[^1]
+This section summarizes an efficient and highly-scalable solver developed for the simulation of geophysical flows on a spherical surface [^1]
 
 ## 1. Theory
 
