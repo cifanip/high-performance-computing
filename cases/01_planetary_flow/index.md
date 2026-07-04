@@ -41,8 +41,13 @@ The matrix multipliucation will dominate the computatinal complexity being $\mat
 
 ## 2. Parallel CPU implementation
 Linear algebra algorithms are taken from the well-established and optimised library LAPACK [3] and its parallel extension
-ScaLAPACK [4]. The parallelisation is carried out by means of MPI [5] combined with openMP multithreading [6]. We select a distribution memory layout that allows for optimal computation of matrix-matrix multiplications referred to as block-cyclic decomposition [4]. In essence, the latter assigns matrix blocks to MPI processes in a cyclic manner in order to optimise load-balance and communication across processors for dense matrix operations. We refer to the ScaLAPACK User’ Guide for a complete description.
+ScaLAPACK [4]. The parallelisation is carried out by means of MPI [5] combined with openMP multithreading [6]. We select a distribution memory layout that allows for optimal computation of matrix-matrix multiplications referred to as block-cyclic decomposition [4]. In essence, the latter assigns matrix blocks to MPI processes in a cyclic manner in order to optimise load-balance and communication across processors for dense matrix operations. 
 
+Particular case must be taken to achieve an efficient implementation in assembling the linear solver related to $\Delta_N$. If one dentifies $A_m$ with $m$-th diagonal of $A$ defined as the $m$-th sub-diagonal for $1 \leq m \leq N − 1$ and the main diagonal for $m = 0$. Then, the tridiagonal Laplacian acts on stream-matrix diagonal elements $P_m$ and produces vorticity-matrix diagonal elements $W_m$, i.e.,
+
+$$
+\Delta^m P_m = W_m, \quad m = 0, \dots, N - 1.
+$$
 
 
 [1]: Cifani, P., Viviani, M. and Modin, K., 2023. An efficient geometric method for incompressible hydrodynamics on the sphere. Journal of Computational Physics.
