@@ -20,7 +20,17 @@ $$
 \end{cases}
 $$
 
-where $\psi$ is the stream-function, related to vorticity $\omega$ via the Laplace-Beltrami operator $\Delta$, and $\lbrace \cdot,\cdot \rbrace$ is the Poisson bracket. The construction of a numerical scheme that embeds a Lie-Poisson structure and its conservation laws requires a finite truncation of the Poisson bracket. This subject relates to concepts of differential geometry, for which I refer the reader to [^1]. In brief, there exist a rigorous procedure to approximate smooth functions on the sphere by by finite-dimensional matrices in the unitary group $\mathfrak{u}(N)$. 
+where $\psi$ is the stream-function, related to vorticity $\omega$ via the Laplace-Beltrami operator $\Delta$, and $\lbrace \cdot,\cdot \rbrace$ is the Poisson bracket. The construction of a numerical scheme that embeds a Lie-Poisson structure and its conservation laws requires a finite truncation of the Poisson bracket. This subject relates to concepts of differential geometry, for which I refer the reader to [^1]. In brief, there exists a rigorous procedure to approximate smooth functions on the sphere by finite-dimensional matrices in the unitary group $\mathfrak{u}(N)$. By doing so, one obtains a spatial discretization of (1.0) in the matrix form
+
+$$
+\begin{cases}
+\dot{W} = [P, W], \\
+\Delta_N P = W,
+\end{cases}
+$$
+
+where $W \in \mathfrak{su}(N)$ is the vorticity matrix, $P \in \mathfrak{su}(N)$ is the stream matrix and $\Delta_N$ a discrete Laplacian. 
+
 
 
 
