@@ -1,2 +1,2 @@
 # hpc-performance-engineering
-A collection of GPU-accelerated solvers, parallel implementations and optimization strategies for scientific and engineering applications. Featuring CUDA, MPI, OpenMP and hardware-level optimization.
+A collection of high-perfomance solvers, parallel algorithms and optimization strategies for scientific and engineering applications. Featuring GPU acceleration, CUDA and MPI paradigms. 
