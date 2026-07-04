@@ -15,12 +15,12 @@ Consider, as a prototype model, the Euler flow on the sphere governed by the euq
 
 $$
 \begin{cases}
-\dot{\omega} = \{\psi, \omega\}, \qquad (1.0) \\
+\dot{\omega} = \lbrace \psi, \omega \rbrace, \qquad (1.0) \\
 \Delta \psi = \omega,
 \end{cases}
 $$
 
-where $\psi$ is the stream-function, related to vorticity $\omega$ via the Laplace-Beltrami operator $\Delta$, and $\\{\cdot,\cdot \\}$ is the Poisson bracket. 
+where $\psi$ is the stream-function, related to vorticity $\omega$ via the Laplace-Beltrami operator $\Delta$, and $\lbrace \cdot,\cdot \rbrace$ is the Poisson bracket. 
 
 
 [1]: Cifani, P., Viviani, M. and Modin, K., 2023. An efficient geometric method for incompressible hydrodynamics on the sphere. Journal of Computational Physics.
