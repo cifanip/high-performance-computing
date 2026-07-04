@@ -24,12 +24,12 @@ where $\psi$ is the stream-function, related to vorticity $\omega$ via the Lapla
 
 $$
 \begin{cases}
-\dot{W} = [P, W], \\
+\dot{W} = [P, W], \qquad (1.1) \\
 \Delta_N P = W,
 \end{cases}
 $$
 
-where $W \in \mathfrak{su}(N)$ is the vorticity matrix, $P \in \mathfrak{su}(N)$ is the stream matrix and $\Delta_N$ a discrete Laplacian. 
+where $W \in \mathfrak{su}(N)$ is the vorticity matrix, $P \in \mathfrak{su}(N)$ is the stream matrix and $\Delta_N$ a discrete Laplacian. System (1.1) preserves $\text{Tr}(W^k)$ for $k=1,...,N$, which corresponds to the integrated powers of vorticity in the continuum. 
 
 
 
