@@ -15,7 +15,7 @@ Consider, as a prototype model, the Euler flow on the sphere governed by the euq
 
 $$
 \begin{cases}
-\dot{\omega} = \{\psi, \omega\}, \\
+\dot{\omega} = \{\psi, \omega\}, \qquad (1.0) \\
 \Delta \psi = \omega,
 \end{cases}
 $$
