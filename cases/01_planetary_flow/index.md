@@ -93,7 +93,7 @@ Data transfer among different data structures can be done efficiently by customi
 <figure align="center">
   <img src="figures/ct_gpu_solver.png" width="500">
   <figcaption>
-    <b>Figure 3.</b> . Computational time per time-step as a function of the number of cores, for N = 2048 (left figure) and for N = 4096 (right figure), using fully MPI parallelisation (solid line), hybrid MPI parallelisation with 12 threads (dash-dotted line) and hybrid MPI parallelisation with 24 threads (dashed line). Linear scaling is shown as a reference by the dotted line.
+    <b>Figure 3.</b> . Computational time per time-step as a function of the number of cores, for N = 2048 (line with dots) and for N = 4096 (line with triangles). The blue rectangle and the red rectangle are the computational times of the GPU-accelerated solver.
 </figcaption>
 </figure>
 
