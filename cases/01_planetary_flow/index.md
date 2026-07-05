@@ -5,13 +5,13 @@ layout: default
 
 # Planetary Flow
 
-This section summarizes an efficient and highly-scalable solver developed for the simulation of **geophysical flows** on a spherical surface (see [^1] and [^2] for details). The original implemention presented in [^1] was based on an hybrid MPI-OpenMP parallelization. More recently, I have developed a **GPU-accelerated** version to conduct cutting-edge research in the group of prof. Klas Modin at Chalmers University. A 10x speedup was achieved compared to the already massively parallelized CPU version. 
+This section summarizes an efficient and highly-scalable solver developed for the simulation of **geophysical flows** on a spherical surface (see [^1] and [^2] for details). The original implementation presented in [^1] was based on an hybrid MPI-OpenMP parallelization. More recently, I have developed a **GPU-accelerated** version to conduct cutting-edge research in the group of prof. Klas Modin at Chalmers University. A 10x speedup was achieved compared to the already massively parallelized CPU version. 
 
 ## 1. Problem setup
 
 Two-dimensional hydrodynamics possess geometric properties that affect its qualitative long-time behaviour. In particular, there exist infinitely many first integrals, called Casimir functions. Physically, they state the conservation of the integrated powers of vorticity and reflect that vorticity is advected along stream-lines. There is strong evidence that the long-time qualitative dynamics of non-viscous two-dimensional fluids is tied to the conservation of Casimirs. To better capture the correct long-time behaviour it is therefore natural to construct numerical methods that preserve these conservation laws. 
 
-Consider, as a prototype model, the Euler flow on the sphere governed by the euqations
+Consider, as a prototype model, the Euler flow on the sphere governed by the equations
 
 $$
 \begin{cases}
@@ -37,13 +37,13 @@ From a numerical standpoint, the three main components are:
 * the construction of the Lie-algebra basis,
 * the computation of the inverse Laplacian.
 
-The matrix multipliucation will dominate the computatinal complexity being $\mathcal{O}(N^3)$. The other two points require the solution of eigenvalue problem and of a linear system. As it stands, the problem is prohibitevly expensive, since the Laplacian matrix is a forth-order tensor. However, $\Delta_N$ admits a tridiagonal splitting into $(2N-1)$ blocks of size $N-\vert m \vert$ corresponding to the $m$-th diagonal of $W$. The parallel implementation of these algorithms will be discussed in the following.
+The matrix multiplication will dominate the computational complexity being $\mathcal{O}(N^3)$. The other two points require the solution of eigenvalue problem and of a linear system. As it stands, the problem is prohibitively expensive, since the Laplacian matrix is a forth-order tensor. However, $\Delta_N$ admits a tridiagonal splitting into $(2N-1)$ blocks of size $N-\vert m \vert$ corresponding to the $m$-th diagonal of $W$. The parallel implementation of these algorithms will be discussed in the following.
 
 ## 2. Parallel CPU implementation
 Linear algebra algorithms are taken from the well-established and optimised library LAPACK [^3] and its parallel extension
 ScaLAPACK [^4]. The parallelisation is carried out by means of MPI [^5] combined with openMP multithreading [^6]. We select a distribution memory layout that allows for optimal computation of matrix-matrix multiplications referred to as block-cyclic decomposition [^4]. In essence, the latter assigns matrix blocks to MPI processes in a cyclic manner in order to optimise load-balance and communication across processors for dense matrix operations. 
 
-If one dentifies $A_m$ with $m$-th diagonal of $A$ defined as the $m$-th sub-diagonal for $1 \leq m \leq N − 1$ and the main diagonal for $m = 0$. Then, the tridiagonal Laplacian acts on stream-matrix diagonal elements $P_m$ and produces vorticity-matrix diagonal elements $W_m$, i.e.,
+If one identifies $A_m$ with $m$-th diagonal of $A$ defined as the $m$-th sub-diagonal for $1 \leq m \leq N − 1$ and the main diagonal for $m = 0$. Then, the tridiagonal Laplacian acts on stream-matrix diagonal elements $P_m$ and produces vorticity-matrix diagonal elements $W_m$, i.e.,
 
 $$
 \Delta^m P_m = W_m, \quad m = 0, \dots, N - 1 \qquad (2.0).
@@ -71,7 +71,7 @@ The parallel performance of the algorithm was analysed on the supercomputer Gali
 What ultimately matters is the computational time one can achieve by means of parallel computing. Here we show that, for $N = 4096$, a time-step is completed in around $0.55$ seconds, which in turn allows for long-time simulations and gathering of statistical quantities of the flow.
 
 ## 3. GPU-accelerated implementation
-As argued in the previous section, the overall computational cost is dominated by matrix multiplication being of complexity $\mathcal{O}(N^3)$. Therefore, it is reasonable to expect good perfomance when offloading this task on modern GPU devices, which have been optimised to handle matrix-matrix multiplication. As part of my consulting, I have ported and parallelised an existing Python version of the solver to GPU. Matrix multiplication is carried out using the NVIDIA libraries `nvmath` [^8]:
+As argued in the previous section, the overall computational cost is dominated by matrix multiplication being of complexity $\mathcal{O}(N^3)$. Therefore, it is reasonable to expect good performance when offloading this task on modern GPU devices, which have been optimised to handle matrix-matrix multiplication. As part of my consulting, I have ported and parallelised an existing Python version of the solver to GPU. Matrix multiplication is carried out using the NVIDIA libraries `nvmath` [^8]:
 
 `nvmath.linalg.advanced import Matmul`
 
@@ -79,7 +79,7 @@ These are highly optimized libraries and ready to use off the shelf. For the sol
 
 `from nvmath.bindings import cusparse`.
 
-In particular, the right-hand side of (2.0) can be conveninetly batched by concatenating pairs of diagonals $\lbrace W_i,W_j \rbrace$ of size $N$:
+In particular, the right-hand side of (2.0) can be conveniently batched by concatenating pairs of diagonals $\lbrace W_i,W_j \rbrace$ of size $N$:
 
 $$
 [ \lbrace W_0 \rbrace , \lbrace W_1, W_{N-1} \rbrace, \lbrace W_2, W_{N-2} \rbrace, ...]  \qquad (3.0).
@@ -98,13 +98,13 @@ Data transfer among different data structures can be done efficiently by customi
 </figcaption>
 </figure>
 
-Moreover, while the CPU solver required thousands of cores and a complex data parallelism over distributed memory, whereas the current approach leverages a single GPU device via highly optimized, off-the-shelf NVIDIA libraries. Figure 4. shows a snapshot of vorticity for the Euler flow (left panel) and for a quasi-geostrophic planetary flow (right panel). The GPU-accelared solver is being used at Chalmers University, by the group led by prof. Klas Modin, to cunduct cutting-edge research in the field of geophysical flow and differential geometry. 
+Moreover, while the CPU solver required thousands of cores and a complex data parallelism over distributed memory, whereas the current approach leverages a single GPU device via highly optimized, off-the-shelf NVIDIA libraries. Figure 4. shows a snapshot of vorticity for the Euler flow (left panel) and for a quasi-geostrophic planetary flow (right panel). The GPU-accelerated solver is being used at Chalmers University, by the group led by prof. Klas Modin, to conduct cutting-edge research in the field of geophysical flow and differential geometry. 
 
 <figure align="center">
   <img src="figures/euler_flow.png" width="45%" style="margin-right: 2%;">
   <img src="figures/geo_flow.png" width="45%">
   <figcaption>
-    <b>Figure 4.</b> Vorticity of Euler flow (left panel) and of a quasi-gestrophic planetary flow (right panel).
+    <b>Figure 4.</b> Vorticity of Euler flow (left panel) and of a quasi-geostrophic planetary flow (right panel).
   </figcaption>
 </figure>
 
