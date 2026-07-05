@@ -5,7 +5,7 @@ layout: default
 
 # Parallel GPU Pricing
 
-This section illustrates algorithms to price American put options. 
+This section illustrates two algorithms to price American put options. A GPU-accelerated demonstration is provided. 
 
 ## Least-Squares Monte Carlo
 
