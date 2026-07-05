@@ -70,6 +70,7 @@ The parallel performance of the algorithm was analysed on the supercomputer Gali
 What ultimately matters is the computational time one can achieve by means of parallel computing. Here we show that, for $N = 4096$, a time-step is completed in around $0.55$ seconds, which in turn allows for long-time simulations and gathering of statistical quantities of the flow.
 
 ## 3. GPU-accelerated implementation
+As argued in the previous section, the overall computational cost is dominated by matrix multiplication being of complexity $\mathcal{O}(N^3)$. Therefore, it is reasonable to expect good perfomance when offloading this task on modern GPU devices, which are have been optimised to handle matrix-matrix multiplication.  
 
 [1]: Cifani, P., Viviani, M. and Modin, K., 2023. An efficient geometric method for incompressible hydrodynamics on the sphere. Journal of Computational Physics.
 
