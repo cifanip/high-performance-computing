@@ -99,7 +99,9 @@ Data transfer among different data structures can be done efficiently by customi
 <br>
 </figure>
 
+<p>
 Moreover, while the CPU solver required thousands of cores and a complex data parallelism over distributed memory, whereas the current approach leverages a single GPU device via highly optimized, off-the-shelf NVIDIA libraries. Figure 4. shows a snapshot of vorticity for the Euler flow (left panel) and for a quasi-geostrophic planetary flow (right panel). The GPU-accelared solver is being used at Chalmers University, by the group led by prof. Klas Modin, to cunduct cutting-edge research in the field of geophysical flow and differential geometry. 
+<p>
 
 <figure align="center">
   <img src="figures/euler_flow.png" width="45%" style="margin-right: 2%;">
