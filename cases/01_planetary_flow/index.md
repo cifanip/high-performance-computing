@@ -94,7 +94,7 @@ Data transfer among different data structures can be done efficiently by customi
 <figure align="center" style="margin-bottom: 30px;">
   <img src="figures/ct_gpu_solver.png" width="500">
   <figcaption>
-    <b>Figure 3.</b> . Computational time per time-step as a function of the number of cores, for N = 2048 (line with dots) and for N = 4096 (line with triangles). The blue rectangle and the red rectangle are the computational times of the GPU-accelerated solver.
+    <b>Figure 3.</b> Computational time per time-step as a function of the number of cores, for N = 2048 (line with dots) and for N = 4096 (line with triangles). The blue rectangle and the red rectangle are the computational times of the GPU-accelerated solver.
 </figcaption>
 </figure>
 
