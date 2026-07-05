@@ -15,7 +15,7 @@ $$
 \widehat{\Pi}_Y(t) = \max\limits_{\tau \in \mathcal{Q}_{t,T}} \widetilde{\mathbb{E}} [ (e^{-r(\tau-t)} g(S(\tau)) | \mathcal{F}_W(t) ], \qquad (1.0)
 $$
 
-where the expectation is taken under the risk-neutral probability measure, $\mathcal{Q}_{t,T}$ is the set of all possible stopping times $\tau \in [t,T]$, $T$ is the maturity time and $g(x) = (K-x)\_+$. Since the underlying stock price is a Markov process (1.0) simplifies to
+where the expectation is taken under the risk-neutral probability measure, $\mathcal{Q}_{t,T}$ is the set of all possible stopping times $\tau \in [t,T]$, $T$ is the maturity time and $g(x) = (K-x)\_+$ with $K$ the strike price and $\mathcal{F}_W(t)$ a filtration for the Brownian motion. Since the underlying stock price is a Markov process (1.0) simplifies to
 
 $$
 \widehat{\Pi}_Y(t,S) = \max\limits_{\tau \in \mathcal{Q}_{t,T}} \widetilde{\mathbb{E}} [ (e^{-r(\tau-t)} g(S(\tau)) | S(t) ]. \qquad (1.1)
