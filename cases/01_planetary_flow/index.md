@@ -82,7 +82,7 @@ These are highly optimized libraries and ready to use off the shelf. For the sol
 In particular, the right-hand side of (2.0) can be conveninetly batched by concatenating pairs of diagonals $\lbrace W_i,W_j \rbrace$ of size $N$:
 
 $$
-[ \lbrace W_0 \rbrace , \lbrace W_1, W_{N-1} \rbrace, \lbrace W_2, W_{N-2} \rbrace, ...]  \qquad (2.1).
+[ \lbrace W_0 \rbrace , \lbrace W_1, W_{N-1} \rbrace, \lbrace W_2, W_{N-2} \rbrace, ...]  \qquad (3.0).
 $$
 
 Then all tridiagonal systems can be solved with a single call to the batched tridiagonal solver
