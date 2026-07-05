@@ -67,6 +67,7 @@ The parallel performance of the algorithm was analysed on the supercomputer Gali
 </figcaption>
 </figure>
 
+
 What ultimately matters is the computational time one can achieve by means of parallel computing. Here we show that, for $N = 4096$, a time-step is completed in around $0.55$ seconds, which in turn allows for long-time simulations and gathering of statistical quantities of the flow.
 
 ## 3. GPU-accelerated implementation
