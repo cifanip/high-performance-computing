@@ -166,7 +166,7 @@ parallelises (1.11) across multiple systems. Figure 2 show the computational tim
 
 Up to $N_u=25$ there is negligible overhead compared to $N_u=1$, with a computational time of about $6 \cdot 10^{-3}$ seconds. An approximately linear increase is observed from that point onward, with a computational time of about $2.5 \cdot 10^{-2}$ seconds at $N_u=200$. 
 
-This is only a demonstration of what one can achieve by combining mathematics and parallel computing. Fine tuning, better hardware optimization, etc., will improve the timing shown in Fig. 2, but the latter provides the order of magnitude for this kind of application.
+This is only a demonstration of what one can achieve by combining mathematics and parallel computing. Fine tuning, better hardware utilization, etc., will improve the timing shown in Fig. 2, but the latter provides the order of magnitude for this kind of application.
 
 [^1]: Calogero, S., 2019. Stochastic Calculus Financial Derivatives and PDE’s. Lecture notes for the course MMA711 at Chalmers University of Technology.
 
