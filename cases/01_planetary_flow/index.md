@@ -54,9 +54,20 @@ Particular care has to be taken when implementing (1.2) in a distributed memory 
 <figure align="center">
   <img src="figures/w_diags.png" width="500">
   <figcaption>
-    <b>Figure 1.</b> . Sketch of a matrix of size N = 7 distributed over three MPI processes across columns. The red boxes indicate the data local to each MPI rank. The diagonals $W_m$ of the vorticity matrix, corresponding to the tridiagonal systems (1.2), are represented by filled blocks. Wm having the same color are assigned to the same MPI rank, as indicated in the left of the figure. The construction of the MPI_Type_Indexed related to the mapping of $W_0$ and $W_3$ stored in the memory of rank 1 is shown at the bottom of the figure. The diagonal values are identified by specifying their displacement in memory as indicated by arrows at the bottom of the figure. 
+    <b>Figure 1.</b> . Sketch of a matrix of size $N = 7$ distributed over three MPI processes across columns. The red boxes indicate the data local to each MPI rank. The diagonals $W_m$ of the vorticity matrix, corresponding to the tridiagonal systems (1.2), are represented by filled blocks. Wm having the same color are assigned to the same MPI rank, as indicated in the left of the figure. The construction of the MPI_Type_Indexed related to the mapping of $W_0$ and $W_3$ stored in the memory of rank 1 is shown at the bottom of the figure. The diagonal values are identified by specifying their displacement in memory as indicated by arrows at the bottom of the figure. 
 </figcaption>
 </figure>
+
+The parallel performance of the algorithm was analysed on the supercomputer Galileo100 [7], which mounted Intel CPU CascadeLake 8260 equipped with 24 cores each. We carry out a scaling test for matrix size $N = 2048$ and $N = 4096$. These resolutions allow for the study of complex flows that span a wide range of scales of motion. Fig. 2 shows the computational time per time-step as a function of the number of cores. A full MPI parallelisation (solid line) is compared with an hybrid parallelisation for two different numbers of threads per MPI process equal to $12$ (dash-dotted line) and $24$ (dashed line). The best performance is found when employing $12$ threads: approximately linear scaling is observed with the lowest computational time at the largest number of cores simulated. The full MPI parallelisation appears to be more efficient for smaller matrix sizes, while it deviates from linear scaling for large $N$. Doubling the number of threads to 24 does not improve the computational time and results in an earlier departure from linear scaling compared to the case where 12 threads are employed. 
+
+<figure align="center">
+  <img src="figures/w_diags.png" width="500">
+  <figcaption>
+    <b>Figure 2.</b> . Computational time per time-step as a function of the number of cores, for N = 2048 (left figure) and for N = 4096 (right figure), using fully MPI parallelisation (solid line), hybrid MPI parallelisation with 12 threads (dash-dotted line) and hybrid MPI parallelisation with 24 threads (dashed line). Linear scaling is shown as a reference by the dotted line.
+</figcaption>
+</figure>
+
+What ultimately matters is the computational time one can achieve by means of parallel computing. Here we show that, for $N = 4096$, a time-step is completed in around $0.55$ seconds, which in turn allows for long-time simulations and gathering of statistical quantities of the flow.
 
 [1]: Cifani, P., Viviani, M. and Modin, K., 2023. An efficient geometric method for incompressible hydrodynamics on the sphere. Journal of Computational Physics.
 
@@ -69,3 +80,5 @@ Particular care has to be taken when implementing (1.2) in a distributed memory 
 [5] W. Gropp, E. Lusk, N. Doss, A. Skjellum, A high-performance, portable implementation of the mpi message passing interface standard, Parallel Comput. 22 (1996) 789–828.
 
 [6] R. Chandra, L. Dagum, D. Kohr, R. Menon, D. Maydan, J. McDonald, Parallel Programming in OpenMP, Morgan Kaufmann, 2001
+
+[7] https://www.hpc.cineca.it/hardware/galileo100.
