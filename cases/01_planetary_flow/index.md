@@ -78,18 +78,24 @@ These are highly optimized libraries and ready to use off the shelf. For the sol
 
 `from nvmath.bindings import cusparse`.
 
-In particular, system (2.0) can be conveninetly batched into a single array by concatenating pairs of diagonals $\lbrace W_i,W_j \rbrace$ of size $N$:
+In particular, the right-hand side of (2.0) can be conveninetly batched by concatenating pairs of diagonals $\lbrace W_i,W_j \rbrace$ of size $N$:
 
 $$
 [ \lbrace W_0 \rbrace , \lbrace W_1, W_{N-1} \rbrace, \lbrace W_2, W_{N-2} \rbrace, ...]  \qquad (2.1).
 $$
 
-and in particular the batched tridiagonal solver
+Then all tridiagonal systems can be solved with a single call to the batched tridiagonal solver
 
 `cusparse.sgtsv2strided_batch`.
 
-A batched system
+Data transfer among different data structures can be done efficiently by customised CUDA kernels. The results, presented in Fig. 3, are impressive. 
 
+<figure align="center">
+  <img src="figures/ct_gpu_solver.png" width="500">
+  <figcaption>
+    <b>Figure 3.</b> . Computational time per time-step as a function of the number of cores, for N = 2048 (left figure) and for N = 4096 (right figure), using fully MPI parallelisation (solid line), hybrid MPI parallelisation with 12 threads (dash-dotted line) and hybrid MPI parallelisation with 24 threads (dashed line). Linear scaling is shown as a reference by the dotted line.
+</figcaption>
+</figure>
 
 
 [1]: Cifani, P., Viviani, M. and Modin, K., 2023. An efficient geometric method for incompressible hydrodynamics on the sphere. Journal of Computational Physics.
