@@ -43,12 +43,31 @@ The matrix multipliucation will dominate the computatinal complexity being $\mat
 Linear algebra algorithms are taken from the well-established and optimised library LAPACK [3] and its parallel extension
 ScaLAPACK [4]. The parallelisation is carried out by means of MPI [5] combined with openMP multithreading [6]. We select a distribution memory layout that allows for optimal computation of matrix-matrix multiplications referred to as block-cyclic decomposition [4]. In essence, the latter assigns matrix blocks to MPI processes in a cyclic manner in order to optimise load-balance and communication across processors for dense matrix operations. 
 
-Particular case must be taken to achieve an efficient implementation in assembling the linear solver related to $\Delta_N$. If one dentifies $A_m$ with $m$-th diagonal of $A$ defined as the $m$-th sub-diagonal for $1 \leq m \leq N − 1$ and the main diagonal for $m = 0$. Then, the tridiagonal Laplacian acts on stream-matrix diagonal elements $P_m$ and produces vorticity-matrix diagonal elements $W_m$, i.e.,
+If one dentifies $A_m$ with $m$-th diagonal of $A$ defined as the $m$-th sub-diagonal for $1 \leq m \leq N − 1$ and the main diagonal for $m = 0$. Then, the tridiagonal Laplacian acts on stream-matrix diagonal elements $P_m$ and produces vorticity-matrix diagonal elements $W_m$, i.e.,
 
 $$
-\Delta^m P_m = W_m, \quad m = 0, \dots, N - 1.
+\Delta^m P_m = W_m, \quad m = 0, \dots, N - 1 \qquad (1.2).
 $$
 
+Particular care has to be taken when implementing (1.2) in a distributed memory system. As pointed out earlier, the matrix data layout is based on a block-cycling distribution, which is optimal for matrix multiplication. Therefore, the $N$ diagonals of $W$ are scattered among processors and mapped into memory in a non-trivial way. In order to extract the diagonals in a simple and efficient way, we first redistribute $W$ into a block-column memory layout. 
+
+
+
+
+ As it is clear from Fig. 1, some values
+of the diagonals owned by a given MPI rank are stored in the local memory of a different MPI rank. This array of values is
+communicated among processors using derived types MPI_Type_Indexed. The latter are a particularly efficient means of
+parallel communication when the data structure of the algorithm remains constant throughout its execution, as it is the case
+here. One can, in fact, encode the memory layout of the data to be transferred into the derived data type and send them
+across processors in a single MPI instruction, thus reducing communication to a minimum and avoiding buffering of data
+altogether. Furt
+
+<figure align="center">
+  <img src="figures/rnp.png" width="500">
+  <figcaption>
+    <b>Figure 1.</b> Risk-neutral probability density of a stock index computed from open-source market data.
+  </figcaption>
+</figure>
 
 [1]: Cifani, P., Viviani, M. and Modin, K., 2023. An efficient geometric method for incompressible hydrodynamics on the sphere. Journal of Computational Physics.
 
