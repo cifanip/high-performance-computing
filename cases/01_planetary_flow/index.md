@@ -46,10 +46,10 @@ ScaLAPACK [4]. The parallelisation is carried out by means of MPI [5] combined w
 If one dentifies $A_m$ with $m$-th diagonal of $A$ defined as the $m$-th sub-diagonal for $1 \leq m \leq N − 1$ and the main diagonal for $m = 0$. Then, the tridiagonal Laplacian acts on stream-matrix diagonal elements $P_m$ and produces vorticity-matrix diagonal elements $W_m$, i.e.,
 
 $$
-\Delta^m P_m = W_m, \quad m = 0, \dots, N - 1 \qquad (1.2).
+\Delta^m P_m = W_m, \quad m = 0, \dots, N - 1 \qquad (2.0).
 $$
 
-Particular care has to be taken when implementing (1.2) in a distributed memory system. As pointed out earlier, the matrix data layout is based on a block-cycling distribution, which is optimal for matrix multiplication. Therefore, the $N$ diagonals of $W$ are scattered among processors and mapped into memory in a non-trivial way. In order to extract the diagonals in a simple and efficient way, we first redistribute $W$ into a block-column memory layout. As it is clear from Fig. 1, some values of the diagonals owned by a given MPI rank are stored in the local memory of a different MPI rank. This array of values is communicated among processors using derived types `MPI_Type_Indexed`. The latter are a particularly efficient means of parallel communication when the data structure of the algorithm remains constant throughout its execution, as it is the case here. One can, in fact, encode the memory layout of the data to be transferred into the derived data type and send them across processors in a single MPI instruction, thus reducing communication to a minimum and avoiding buffering of data altogether. Furthermore, data are transferred in a non-blocking manner, by the pair `MPI_Issend`, `MPI_Irecv`, reducing waiting times.
+Particular care has to be taken when implementing (2.0) in a distributed memory system. As pointed out earlier, the matrix data layout is based on a block-cycling distribution, which is optimal for matrix multiplication. Therefore, the $N$ diagonals of $W$ are scattered among processors and mapped into memory in a non-trivial way. In order to extract the diagonals in a simple and efficient way, we first redistribute $W$ into a block-column memory layout. As it is clear from Fig. 1, some values of the diagonals owned by a given MPI rank are stored in the local memory of a different MPI rank. This array of values is communicated among processors using derived types `MPI_Type_Indexed`. The latter are a particularly efficient means of parallel communication when the data structure of the algorithm remains constant throughout its execution, as it is the case here. One can, in fact, encode the memory layout of the data to be transferred into the derived data type and send them across processors in a single MPI instruction, thus reducing communication to a minimum and avoiding buffering of data altogether. Furthermore, data are transferred in a non-blocking manner, by the pair `MPI_Issend`, `MPI_Irecv`, reducing waiting times.
 
 <figure align="center">
   <img src="figures/w_diags.png" width="500">
@@ -74,7 +74,23 @@ As argued in the previous section, the overall computational cost is dominated b
 
 `nvmath.linalg.advanced import Matmul`
 
-These are highly optimized libraries and ready to use off the shelf. 
+These are highly optimized libraries and ready to use off the shelf. For the solution of tridiagonal systems (2.0) the library `cusparse` has been employed 
+
+`from nvmath.bindings import cusparse`.
+
+In particular, system (2.0) can be conveninetly batched into a single array by concatenating pairs of diagonals $\lbrace W_i,W_j \rbrace$ of size $N$:
+
+$$
+[ \lbrace W_0 \rbrace , \lbrace W_1, W_{N-1} \rbrace, \lbrace W_2, W_{N-2} \rbrace, ...]  \qquad (2.1).
+$$
+
+and in particular the batched tridiagonal solver
+
+`cusparse.sgtsv2strided_batch`.
+
+A batched system
+
+
 
 [1]: Cifani, P., Viviani, M. and Modin, K., 2023. An efficient geometric method for incompressible hydrodynamics on the sphere. Journal of Computational Physics.
 
