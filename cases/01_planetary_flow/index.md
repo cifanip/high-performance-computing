@@ -14,10 +14,10 @@ Two-dimensional hydrodynamics possess geometric properties that affect its quali
 Consider, as a prototype model, the Euler flow on the sphere governed by the euqations
 
 $$
-\begin{cases}
-\dot{\omega} = \lbrace \psi, \omega \rbrace, \qquad (1.0) \\
-\Delta \psi = \omega,
-\end{cases}
+\begin{align}
+&\dot{\omega} = \lbrace \psi, \omega \rbrace, \qquad (1.0) \\
+&\Delta \psi = \omega,
+\end{align}
 $$
 
 where $\psi$ is the stream-function, related to vorticity $\omega$ via the Laplace-Beltrami operator $\Delta$, and $\lbrace \cdot,\cdot \rbrace$ is the Poisson bracket. The construction of a numerical scheme that embeds a Lie-Poisson structure and its conservation laws requires a finite truncation of the Poisson bracket. This subject relates to concepts of differential geometry, for which I refer the reader to [^1]. In brief, there exists a rigorous procedure to approximate smooth functions on the sphere by finite-dimensional matrices in the unitary group $\mathfrak{u}(N)$. By doing so, one obtains a spatial discretization of (1.0) in the matrix form
