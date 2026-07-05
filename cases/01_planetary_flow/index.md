@@ -37,7 +37,7 @@ From a numerical standpoint, the three main components are:
 * the construction of the Lie-algebra basis,
 * the computation of the inverse Laplacian.
 
-The matrix multipliucation will dominate the computatinal complexity being $\mathcal{O}(N^3)$. The other two points require the solution of eigenvalue problem and of a linear system. As it stands, the problem is prohibitevly expensive, since the Laplacian matrix is a forth-order tensor. However, $\Delta_N$ admits a tridiagonal splitting into $(2N-1)$ blocks of size $N-\| m \|$ corresponding to the $m$-th diagonal of $W$. The parallel implementation of these algorithms will be discussed in the following.
+The matrix multipliucation will dominate the computatinal complexity being $\mathcal{O}(N^3)$. The other two points require the solution of eigenvalue problem and of a linear system. As it stands, the problem is prohibitevly expensive, since the Laplacian matrix is a forth-order tensor. However, $\Delta_N$ admits a tridiagonal splitting into $(2N-1)$ blocks of size $N-\vert m \vert$ corresponding to the $m$-th diagonal of $W$. The parallel implementation of these algorithms will be discussed in the following.
 
 ## 2. Parallel CPU implementation
 Linear algebra algorithms are taken from the well-established and optimised library LAPACK [^3] and its parallel extension
