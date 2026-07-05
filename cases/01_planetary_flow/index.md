@@ -91,7 +91,7 @@ Then all tridiagonal systems can be solved with a single call to the batched tri
 
 Data transfer among different data structures can be done efficiently by customised CUDA kernels. The numerical simulations were executed on an NVIDIA H100 GPU platform. The results, presented in Fig. 3, are impressive. A 10x speedup, compared to the CPU solver, has been achieved at the highest simulated resolution of $N=4096$. 
 
-<figure align="center">
+<figure align="center" style="margin-bottom: 30px;">
   <img src="figures/ct_gpu_solver.png" width="500">
   <figcaption>
     <b>Figure 3.</b> . Computational time per time-step as a function of the number of cores, for N = 2048 (line with dots) and for N = 4096 (line with triangles). The blue rectangle and the red rectangle are the computational times of the GPU-accelerated solver.
