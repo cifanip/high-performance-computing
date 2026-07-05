@@ -61,7 +61,7 @@ Particular care has to be taken when implementing (1.2) in a distributed memory 
 The parallel performance of the algorithm was analysed on the supercomputer Galileo100 [7], which mounted Intel CPU CascadeLake 8260 equipped with 24 cores each. We carry out a scaling test for matrix size $N = 2048$ and $N = 4096$. These resolutions allow for the study of complex flows that span a wide range of scales of motion. Fig. 2 shows the computational time per time-step as a function of the number of cores. A full MPI parallelisation (solid line) is compared with an hybrid parallelisation for two different numbers of threads per MPI process equal to $12$ (dash-dotted line) and $24$ (dashed line). The best performance is found when employing $12$ threads: approximately linear scaling is observed with the lowest computational time at the largest number of cores simulated. The full MPI parallelisation appears to be more efficient for smaller matrix sizes, while it deviates from linear scaling for large $N$. Doubling the number of threads to 24 does not improve the computational time and results in an earlier departure from linear scaling compared to the case where 12 threads are employed. 
 
 <figure align="center">
-  <img src="figures/w_diags.png" width="500">
+  <img src="figures/ct_cpu_scaling.png" width="500">
   <figcaption>
     <b>Figure 2.</b> . Computational time per time-step as a function of the number of cores, for N = 2048 (left figure) and for N = 4096 (right figure), using fully MPI parallelisation (solid line), hybrid MPI parallelisation with 12 threads (dash-dotted line) and hybrid MPI parallelisation with 24 threads (dashed line). Linear scaling is shown as a reference by the dotted line.
 </figcaption>
