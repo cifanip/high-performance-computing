@@ -5,11 +5,11 @@ layout: default
 
 # Parallel GPU Pricing
 
-This section illustrates algorithms to price American put options. Background material can be found here: [notes on risk-neutral probability measure](https://github.com/cifanip/quantitative-finance/tree/main/cases/01_risk_neutral_probability_measure/) and [notes on American options](https://github.com/cifanip/quantitative-finance/tree/main/cases/07_american_options/)
+This section illustrates algorithms to price American put options. 
 
 ## Least-Squares Monte Carlo
 
-We first recall the final expression for the price of American put options derived in [notes on American options](https://github.com/cifanip/quantitative-finance/tree/main/cases/07_american_options/):
+We first recall the final expression for the price of American put options (see for exmaple [^1])
 
 $$
 \widehat{\Pi}_Y(t) = \max\limits_{\tau \in \mathcal{Q}_{t,T}} \widetilde{\mathbb{E}} [ (e^{-r(\tau-t)} g(S(\tau)) | \mathcal{F}_W(t) ], \qquad (1.0)
@@ -150,7 +150,7 @@ $$
 
 Finally, the solution will be $V^0(S_0)$, with $S_0$ the spot price. The complexity of the algorithm is ideally $\mathcal{O}(M^dN)$ (assuming linear time in solving (1.11), which often not the case for $d>1$). Compared with that of the LSMC method, there is a neat advantage for $d=1$, considering that the ensemble size is typically much larger that the number of spatial grid points. Clearly, the finite-difference method suffers the curse of dimensionality. 
 
-The problem is inherently sequential in time, while parallelisation is possible over a range of strike prices and underlings. This calls for batched tridiagonal solvers executed efficiently on modern GPUs. Here we have employed the GPU-accelerated library $\texttt{cuSPARSE}$ [^1]. In particular, the function
+The problem is inherently sequential in time, while parallelisation is possible over a range of strike prices and underlings. This calls for batched tridiagonal solvers executed efficiently on modern GPUs. Here we have employed the GPU-accelerated library $\texttt{cuSPARSE}$ [^2]. In particular, the function
 
 ```
 dgtsv2strided_batch
@@ -168,6 +168,8 @@ Up to $N_u=25$ there is negligible overhead compared to $N_u=1$, with a computat
 
 This is only a demonstration of what one can achieve by combining mathematics and parallel computing. Fine tuning, better hardware, etc., will improve the timing shown in Fig. 2, but the latter provides the order of magnitude of what is within reach with the current technology.
 
-[^1]: GPU-accelerated sparse linear algebra library provided by NVIDIA: https://docs.nvidia.com/cuda/cusparse/.
+[^1]: Calogero, S., 2019. Stochastic Calculus Financial Derivatives and PDE’s. Lecture notes for the course MMA711 at Chalmers University of Technology.
+
+[^2]: GPU-accelerated sparse linear algebra library provided by NVIDIA: https://docs.nvidia.com/cuda/cusparse/.
 
 
