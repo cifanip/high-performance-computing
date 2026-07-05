@@ -54,7 +54,7 @@ Particular care has to be taken when implementing (1.2) in a distributed memory 
 <figure align="center">
   <img src="figures/w_diags.png" width="500">
   <figcaption>
-    <b>Figure 1.</b> . Sketch of a matrix of size $N = 7$ distributed over three MPI processes across columns. The red boxes indicate the data local to each MPI rank. The diagonals $W_m$ of the vorticity matrix, corresponding to the tridiagonal systems (1.2), are represented by filled blocks. Wm having the same color are assigned to the same MPI rank, as indicated in the left of the figure. The construction of the `MPI_Type_Indexed` related to the mapping of $W_0$ and $W_3$ stored in the memory of rank 1 is shown at the bottom of the figure. The diagonal values are identified by specifying their displacement in memory as indicated by arrows at the bottom of the figure. 
+    <b>Figure 1.</b> . Sketch of a matrix of size $N = 7$ distributed over three MPI processes across columns. The red boxes indicate the data local to each MPI rank. The diagonals $W_m$ of the vorticity matrix, corresponding to the tridiagonal systems (1.2), are represented by filled blocks. Wm having the same color are assigned to the same MPI rank, as indicated in the left of the figure. The construction of the MPI_Type_Indexed related to the mapping of $W_0$ and $W_3$ stored in the memory of rank 1 is shown at the bottom of the figure. The diagonal values are identified by specifying their displacement in memory as indicated by arrows at the bottom of the figure. 
 </figcaption>
 </figure>
 
