@@ -7,6 +7,11 @@ layout: default
 
 This section illustrates two algorithms to price American put options. A GPU-accelerated demonstration is provided. 
 
+Parallel Programming Stack:
+* CUDA
+* nvmath
+* cuSPARSE
+
 ## Least-Squares Monte Carlo
 
 We first recall the final expression for the price of American put options (see for exmaple [^1])
