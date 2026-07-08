@@ -26,7 +26,7 @@ $$
 
 ## Least-Squares Monte Carlo
 
-The objective is compute a good approximation of the expectation (0.1) via a Monte Carlo estimator. The maximization is over all stopping times $\tau$, which however are random ad adapted to the filtration at the current time $t$. Thus, they cannot be inferred from future informations. A natural way to solve this problem is then to start from the maturity time and work backwards. The first step is to discretize time:
+The objective is compute a good approximation of the expectation (0.1) via a Monte Carlo estimator. The maximization is over all stopping times $\tau$, which however are random and adapted to the filtration at the current time $t$. Thus, they cannot be inferred from future informations. A natural way to solve this problem is then to start from the maturity time and work backwards. The first step is to discretize time:
 
 $$
 0 = t_0 \leq t_1 \leq ... \leq t_N = T. \qquad (1.2)
