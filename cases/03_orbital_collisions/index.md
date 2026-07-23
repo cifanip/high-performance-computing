@@ -13,12 +13,18 @@ Parallel Programming Stack:
 
 ## 1. Problem setup
 
-The orbital collision problem can be stated in classical mechanics as an initial value problem. The objective is to determine whether the trajectories of a pair of spatial objects will intersect in a given time horizon. For this purpose, point-particle dynamics serves as an appropriate model. Let us assume that the satellite's position in orbit is governed by the following second-order differential equation
+The orbital collision problem can be stated in classical mechanics as an initial value problem. The objective is to determine whether the trajectories of a pair of spatial objects will intersect in a given time horizon. For this purpose, point-particle dynamics serves as an appropriate model. Let us assume that the satellite's position vector is governed by the following second-order differential equation
 
 $$
 \ddot{\mathbf{r}} = -\frac{\mu}{r^3}\mathbf{r} + \mathbf{a}_{J_2} \qquad (1)
 $$
 
-where 
+where $\mu$ is the standard gravitational parameter and $\mathbf{a}_{J_2}$ the oblateness perturbation
+
+$$
+\mathbf{a}_{J_2} = -\frac{3}{2} J_2 \left( \frac{\mu R_E^2}{r^5} \right) \left[ \left( 1 - 5\left(\frac{z}{r}\right)^2 \right) \mathbf{r} + 2z \hat{\mathbf{k}} \right] \qquad (2)
+$$
+
+with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. 
 
 If the problem were fully deterministic, one could for example evolve the equation of motion of point partciles 
