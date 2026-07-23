@@ -25,6 +25,6 @@ $$
 \mathbf{a}_{J_2} = -\frac{3}{2} J_2 \left( \frac{\mu R_E^2}{r^5} \right) \left[ \left( 1 - 5\left(\frac{z}{r}\right)^2 \right) \mathbf{r} + 2z \hat{\mathbf{k}} \right] \qquad (2)
 $$
 
-with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. 
+with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. Equation (1) can be numerically integrated using an ODE solver, such as the **RK4 method** employed in the subsequent sections. Observations however 
 
-If the problem were fully deterministic, one could for example evolve the equation of motion of point partciles 
+If the problem were fully deterministic, one numerically solve equation ()of motion of point partciles 
