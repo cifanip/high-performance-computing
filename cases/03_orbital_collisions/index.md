@@ -19,4 +19,6 @@ $$
 \ddot{\mathbf{r}} = -\frac{\mu}{r^3}\mathbf{r} + \mathbf{a}_{J_2} \qquad (1)
 $$
 
+where 
+
 If the problem were fully deterministic, one could for example evolve the equation of motion of point partciles 
