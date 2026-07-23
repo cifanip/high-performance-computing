@@ -22,9 +22,9 @@ $$
 where $\mu$ is the standard gravitational parameter and $\mathbf{a}_{J_2}$ the oblateness perturbation
 
 $$
-\mathbf{a}_{J_2} = -\frac{3}{2} J_2 \left( \frac{\mu R_E^2}{r^5} \right) \left[ \left( 1 - 5\left(\frac{z}{r}\right)^2 \right) \mathbf{r} + 2z \hat{\mathbf{k}} \right] \qquad (2)
+\mathbf{a}_{J_2} = -\frac{3}{2} J_2 \left( \frac{\mu R_E^2}{r^5} \right) \left[ \left( 1 - 5\left(\frac{z}{r}\right)^2 \right) \mathbf{r} + 2z \hat{\mathbf{k}} \right]
 $$
 
-with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. Equation (1) can be numerically integrated using an ODE solver, such as the **RK4 method** employed in the subsequent sections. Observations however 
+with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. Given an initial condition for state vector $\mathbf{x}(t)=[\mathbf{r}(t),\dot{\mathbf{r}}]$, equation (1) can be numerically integrated using an ODE solver, such as the **RK4 method** employed in the subsequent sections. Observations however carry uncertainty, due to measurament error. Therefore, to each state $\mathbf{x}(t)$ there is a covariance matrix $\mathbb{C} \in \mathbb{R}^6$ associated to it. 
 
 If the problem were fully deterministic, one numerically solve equation ()of motion of point partciles 
