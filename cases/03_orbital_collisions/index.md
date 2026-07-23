@@ -11,3 +11,4 @@ Parallel Programming Stack:
 * CUDA
 * cuRAND
 
+## 1. Problem setup
