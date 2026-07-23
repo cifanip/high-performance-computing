@@ -12,3 +12,4 @@ Parallel Programming Stack:
 * cuRAND
 
 ## 1. Problem setup
+The orbital collision problem. 
