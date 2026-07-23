@@ -29,7 +29,9 @@ with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary o
 
 To estimate $P_c$, we introduce a **Monte Carlo simulation** framework. In particular, we simulate and ensamble of perturbed initial conditions from a given associated covariance matrix $\mathbf{C} \in \mathbb{R}^{6\times 6}$ in a neightborhood of the collision site. Each object pair is evolved by a high-resolutuon RK4 integrator and physical collisions are detected along their paths. 
 
-***Algorithm Outline***
+### Algorithm Outline
+
+
 
 
 
