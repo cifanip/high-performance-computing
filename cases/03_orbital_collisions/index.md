@@ -13,4 +13,6 @@ Parallel Programming Stack:
 
 ## 1. Problem setup
 
-The orbital collision problem can be stated in classical mechanics as an initial value problem. The objective is to determine whether the trajectories of a pair of spatial objects will intersect in a given time horizon. 
+The orbital collision problem can be stated in classical mechanics as an initial value problem. The objective is to determine whether the trajectories of a pair of spatial objects will intersect in a given time horizon. A reasonable model is....
+
+If the problem were fully deterministic, one could for example evolve the equation of motion of point partciles 
