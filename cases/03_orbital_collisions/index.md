@@ -25,6 +25,10 @@ $$
 \mathbf{a}_{J_2} = -\frac{3}{2} J_2 \left( \frac{\mu R_E^2}{r^5} \right) \left[ \left( 1 - 5\left(\frac{z}{r}\right)^2 \right) \mathbf{r} + 2z \hat{\mathbf{k}} \right]
 $$
 
-with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. Given an initial condition for state vector $\mathbf{x}(t)=[\mathbf{r}(t),\dot{\mathbf{r}}]$, equation (1) can be numerically integrated using an ODE solver, such as the **RK4 method** employed in the subsequent sections. Observations however carry uncertainty, due to measurament error. Therefore, to each state $\mathbf{x}(t)$ there is a covariance matrix $\mathbb{C} \in \mathbb{R}^6$ associated to it. 
+with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. Given an initial condition $\mathbf{x}(t_0)=[\mathbf{r}(t_0),\dot{\mathbf{r}(t_0)}]$, equation (1) can be numerically integrated using an ODE solver, such as the **RK4 method** employed in the subsequent sections. However, observations inherently carry uncertainty due to measurement errors. Furthermore, nominal predictions of conjunction events between two objects, $\mathbf{x}_0$ and $\mathbf{x}_1$, are typically affected by modeling errors introduced by the approximate analytical methods used for broad orbital screening. Consequently, the collision problem is fundamentally probabilistic, yielding the probability of collision ($P_c$) as the primary metric of interest.
 
-If the problem were fully deterministic, one numerically solve equation ()of motion of point partciles 
+To estimate $P_c$, we introduce a **Monte Carlo simulation** framework. In particular, we simulate and ensamble of perturbed initial conditions from a given associated covariance matrix $\mathbf{C} \in \mathbb{R}^{6\times 6}$ in a neightborhood of the collision site. Each object pair is evolved by a high-resolutuon RK4 integrator and physical collisions are detected along their paths. 
+
+*** Sketch of the algorithm ***
+
+
