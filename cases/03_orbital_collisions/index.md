@@ -73,6 +73,16 @@ Random sampling of the initial conditions is carried out when expanding the inpu
 curand_init(seed, thread_idx, 0, &curand_state[thread_idx]);
 ```
 
-where `thread_idx` is the global thread index, i.e., each thread is associated to a random state. 
+where `thread_idx` is the global thread index, i.e., each thread is associated to a random state. In order for a thread generate a random number it needs to acces the random state from VRAM. Since the state vector is 6-dimensional, multiple samples have to be drawn. To avoid several accesses to the VRAM, the random state is copied locally to the thread so that subseqeunt samples are perfomed efficiently from the register. Here an example of uniform and independent perturbation of the position coordinates:
+
+```
+  // local copy
+  curandState local_state = rand_states[thread_idx];
+  
+  // position perturbation
+  double dxA = curand_uniform_double(&local_state) * 0.2 - 0.1;
+  double dyA = curand_uniform_double(&local_state) * 0.2 - 0.1;
+  double dzA = curand_uniform_double(&local_state) * 0.2 - 0.1;
+```
 
 
