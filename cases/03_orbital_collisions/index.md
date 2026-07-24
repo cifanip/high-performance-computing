@@ -44,5 +44,10 @@ $$
 \lbrace \mathbf{X}^0(T),\mathbf{X}^1(T),...,\mathbf{X}^{2C-1}(T) \rbrace 
 $$
 
-c
+with the coordinates of an element in the list given by
+
+$$
+\mathbf{X}^i(T) = [ \mathbf{x}^i(T),\mathbf{y}^i(T),\mathbf{y}^i(T),\mathbf{v_x}^i(T),\mathbf{v_y}^i(T),\mathbf{v_z}^i(T) ].
+$$
+
 
