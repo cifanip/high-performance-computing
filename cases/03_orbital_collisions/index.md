@@ -106,7 +106,10 @@ Then the trade off is in occupancy gain compared to register spill offs. The tab
 
 | Configuration | Execution Time (ms) |
 | :--- | :--- |
-| Low occupancy - no spill overs | 546.01 |
-| High occupancy - spill overs | 567.31 |
+| Low occupancy - no spill overs | 522.31 |
+| High occupancy - spill overs | 547.61 |
+
+### Collision count reduction
+
 
 
