@@ -47,7 +47,7 @@ $$
 with the coordinates of an element in the list given by
 
 $$
-\mathbf{X}^i(T) = [ \mathbf{x}^i(T),\mathbf{y}^i(T),\mathbf{y}^i(T),\mathbf{v_x}^i(T),\mathbf{v_y}^i(T),\mathbf{v_z}^i(T) ].
+\mathbf{X}^i(T) = [ \mathbf{x}^i(T),\mathbf{y}^i(T),\mathbf{z}^i(T),\mathbf{v_x}^i(T),\mathbf{v_y}^i(T),\mathbf{v_z}^i(T) ].
 $$
 
 
