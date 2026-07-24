@@ -144,7 +144,21 @@ In practice, however, since this algorithm is heavily compute-bound, this memory
 
 ### FLOPs count and performance measurament
 
-The RK4 kernel consist of a large number of FLOPs and only a handful of access to the VRAM. That is, once the initial state values are read from memory, the integrator evolves forward for thousands of time steps up to the final simulan simulation time before writing the output to VRAM. Counting the exact number of FLOPs is not strainghtfoward since the compiler will perfom aggressive optimisation. An estimate can be deduced from the compiler `nvcc -arch=sm_70 -ptx` counting additions, multiplications and fused multiply-adds. In our implementation, a full RK4 integration, from $t=t_0$ to $t=TCA$ consist of about 500000 FLOPs. In constrast, the number of reads from VRAM is only 12. Clearly, this alrorithm is **compute-bounds**. Any optimization effort should be directed towards reducing as much as possible the number of FLOPs. To start off with a simple but effective example, consider 
+The RK4 kernel consist of a large number of FLOPs and only a handful of access to the VRAM. That is, once the initial state values are read from memory, the integrator evolves forward for thousands of time steps up to the final simulan simulation time before writing the output to VRAM. Counting the exact number of FLOPs is not strainghtfoward since the compiler will perfom aggressive optimisation. An estimate can be deduced from the compiler `nvcc -arch=sm_70 -ptx` counting additions, multiplications and fused multiply-adds. In our implementation, a full RK4 integration, from $t=t_0$ to $t=TCA$ consist of about 500000 FLOPs. In constrast, the number of reads from VRAM is only 12. Clearly, this alrorithm is **compute-bounds**. 
+
+Any optimization effort should be directed towards reducing as much as possible the number of FLOPs. To start off let's consider a simple but effective example. Consider the RK4 steps solving Eq. (1)
+
+$$
+\begin{aligned}
+\mathbf{k}_1 &= \mathbf{f}(\mathbf{X}_n) \\
+\mathbf{k}_2 &= \mathbf{f}\left(\mathbf{X}_n + \frac{h}{2}\mathbf{k}_1\right) \\
+\mathbf{k}_3 &= \mathbf{f}\left(\mathbf{X}_n + \frac{h}{2}\mathbf{k}_2\right) \\
+\mathbf{k}_4 &= \mathbf{f}(\mathbf{X}_n + h\mathbf{k}_3) \\
+\mathbf{X}_{n+1} &= \mathbf{X}_n + \frac{h}{6}(\mathbf{k}_1 + 2\mathbf{k}_2 + 2\mathbf{k}_3 + \mathbf{k}_4)
+\end{aligned}
+$$
+
+
 
 
 
