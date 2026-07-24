@@ -119,6 +119,28 @@ if (collided)
 }
 ```
 
-where a shared counter is updated every time a atomically collision is detected. However, not all threads need calling `atomicAdd`. In fact, threads within a warp may cooperate to the total count and have only a single thread perform the atomic sum, thus reducing by a factor 32 accesses to the VRAM memory. 
+where a shared counter is updated every time a atomically collision is detected. However, not all threads need calling `atomicAdd`. In fact, threads within a warp may cooperate to the total count and have only a single thread perform the atomic sum, thus reducing by a factor 32 the access to the VRAM memory. An sketch of this implementation is provided below:
+
+```
+  // 32-bit mask
+  unsigned int collision_mask = __ballot_sync(0xFFFFFFFF, collided);
+  
+  int lane_id = threadIdx.x % 32;
+  
+  // thread leader in the warp
+  if (lane_id == 0) 
+  {
+    // Population count
+    int collisions_in_warp = __popc(collision_mask);
+    
+    // atomic reduction on RAM
+    if (collisions_in_warp > 0) 
+    {
+      atomicAdd(&counter[cid], collisions_in_warp);
+    }
+  }
+```
+
+
 
 
