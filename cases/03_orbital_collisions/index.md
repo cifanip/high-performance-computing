@@ -38,7 +38,7 @@ For our numerical experiments, we employ the following simulation parameters: $C
 In the following sections, we outline several key implementation aspects to consider for achieving excellent computational performance on a GPU. 
 
 ### Memory layout
-Even though memory bandwidth is not the primary concern in the RK4 method &mdash; which is notoriously compute-bound &mdash; an efficient memory layout is essential to avoid data read/write bottlenecks. Suppose input sate vectors arrive from an observational system as a ordered list:
+Even though memory bandwidth is not the primary concern in the RK4 method &mdash; which is notoriously compute-bound &mdash; an efficient memory layout is essential to avoid data read/write bottlenecks. Suppose input sate vectors arrive from an observational system as an ordered list:
 
 $$
 \lbrace \mathbf{X}^0(T),\mathbf{X}^1(T),...,\mathbf{X}^{2C-1}(T) \rbrace, \qquad (2)
@@ -50,7 +50,9 @@ $$
 \mathbf{X}^i(T) = [ \mathbf{x}^i(T),\mathbf{y}^i(T),\mathbf{z}^i(T),\mathbf{v_x}^i(T),\mathbf{v_y}^i(T),\mathbf{v_z}^i(T) ].
 $$
 
-List (2) must be expanded to generate ensambles for the Monte Carlo algorithm. Storing coordinates in a sequence $x,y,z,...,v_z$ as in (2) is not a good layout. Each thread accessing these coordinates from VRAM will have to fetch memory strided by $6$ elements with a consequence waste of cache line. A layout that facilitates **memory coalescence** is constructed by storing values of the same coordinate sequentially. For a single onbject, e.g. $X^0$, we have
+List (2) must be expanded to generate ensambles for the Monte Carlo simulation. Storing coordinates as an interleaved sequence $x,y,z,...,v_z$ as in (2) creates an inefficient layout. Threads within a warp accessing these coordinates from VRAM would fetch memory strided by 6 elements, resulting in uncoalesced accesses and wasted cache lines. 
+
+To achieve strict **memory coalescence** we construct a layout by storing values of the same coordinate sequentially. For a single object, e.g. $X^0$, we have
 
 $$
 L^0 = \lbrace \mathbf{x}^0_0,...,\mathbf{x}^0_{N-1},\mathbf{y}^0_0,...,\mathbf{y}^0_{N-1},...,\mathbf{z}^0_{0},...,\mathbf{z}^0_{N-1},... \rbrace,
@@ -62,6 +64,8 @@ $$
 L = \lbrace L^0, L^1, L^{2C-1} \rbrace. \qquad (3)
 $$
 
-Clearly, each thread in a warp that starts a RK4 iteration will find each coordinate value laid sequentially in memory and thus allowing for efficient memory tranfer. 
+Consequently, when the threads in a warp execute an RK4 iteration, consecutive threads fetch consecutive coordinate values. This contiguous alignment guarantees coalesced memory transactions, maximizing VRAM bandwidth utilization.
+
+### Random sampling
 
 
