@@ -56,5 +56,9 @@ $$
 L^0 = \lbrace \mathbf{x}^0_0,...,\mathbf{x}^0_{N-1},\mathbf{y}^0_0,...,\mathbf{y}^0_{N-1},...,\mathbf{z}^0_{0},...,\mathbf{z}^0_{N-1},... \rbrace,
 $$
 
-where the subscript indicates the realization. 
+where the subscript indicates the realization. The full dataset is obtained by concatenating the lists $L^i$:
+
+$$
+\text{DATA} = \lbrace L^0, L^1, L^{2C-1} \rbrace. \qquad (3)
+$$
 
