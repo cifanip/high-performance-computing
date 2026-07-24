@@ -73,6 +73,6 @@ Random sampling of the initial conditions is carried out when expanding the inpu
 curand_init(seed, idx, 0, &curand_state[idx]);
 ```
 
-where \texttt{idx} is the global thread index, i.e., each thread is associated to a random state. 
+where `idx` is the global thread index, i.e., each thread is associated to a random state. 
 
 
