@@ -90,19 +90,19 @@ The wrokload is organized in a two-dimensional grid, where the first dimension s
 
 The workload is organized into a two-dimensional grid, where the first dimension ($x$) spans the $N$ realizations and the second dimension ($y$) spans the $C$ collision sites. Because a warp consists of 32 threads &mdash; and to preserve the coalesced memory reads detailed in the previous section &mdash; the block dimension along $x$ must be a multiple of 32. We conduct our numerical experiments on an NVIDIA Tesla V100. For this architecture, the maximum number of blocks per Streaming Multiprocessor (SM) is 32, the maximum number of threads per block is 1024, and the absolute maximum number of threads per SM is 2048. 
 
-The most stringent costraint is the number of registers available per thread, here equal to $65,536 / 2048 = 32$ registers. An insection using `nvcc -arch=sm_70 --ptxas-options` reveals $85$ registers needed by the main RK4 CUDA kernel:
+The most stringent costraint on achieving maximum occupancy is the number of registers available per thread, in this case equal to $65,536 / 2048 = 32$ registers. An insection of the compilation output  (using `nvcc -arch=sm_70 --ptxas-options=-v`) reveals that the main RK4 CUDA kernel requires $85$ registers:
 
 ```
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
 ptxas info    : Used 85 registers, 408 bytes cmem[0], 24 bytes cmem[2]
 ```
 
-This results in about $38$% occupancy. One could, for example, force a kernel of $256$ threads per block to hit $50$% occupancy by requesting exaclty $4$ blocks
+This results in about $38$% occupancy. One could, for example, force a kernel of $256$ threads per block to reach $50$% occupancy by requesting at least $4$ blocks
 
 ```
 __global__ void __launch_bounds__(256, 4) rk4(...)
 ```
-Then the trade off is in occupancy gain compared to register spill offs. The table below shows the computational time for the two cases. Accepting the hard limit of register count appears to be the preferrable choice in practice. Similar tests have shown analogous results. 
+However, this introduces a tradeoff between the gain in occupancy and the latency penalty of register spilling to local memory. The table below compares the execution times for both configurations. In practice, accepting the register limit and avoiding spilling proves to be the preferable choice. Similar tests yielded analogous results.
 
 | Configuration | Execution Time (ms) |
 | :--- | :--- |
@@ -110,6 +110,6 @@ Then the trade off is in occupancy gain compared to register spill offs. The tab
 | High occupancy - spill overs | 547.61 |
 
 ### Collision count reduction
-
+To compute the 
 
 
