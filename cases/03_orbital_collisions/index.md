@@ -67,13 +67,13 @@ $$
 Consequently, when the threads in a warp execute an RK4 iteration, consecutive threads fetch consecutive coordinate values. This contiguous alignment guarantees coalesced memory transactions, maximizing VRAM bandwidth utilization.
 
 ### Random sampling
-Random sampling of the initial conditions is carried out when expanding the input state vector list (2). First, a one-time initilization of `curandState` objects is executed in a CUDA kernel
+Random sampling of the initial conditions is carried out when expanding the input state vector list (2). First, a one-time initilization of `curandState` objects is executed in a CUDA kernel:
 
 ```
 curand_init(seed, thread_idx, 0, &curand_state[thread_idx]);
 ```
 
-where `thread_idx` is the global thread index, i.e., each thread is associated to a random state. In order for a thread generate a random number it needs to acces the random state from VRAM. Since the state vector is 6-dimensional, multiple samples have to be drawn. To avoid several accesses to the VRAM, the random state is copied locally to the thread so that subseqeunt samples are perfomed efficiently from the register. Here an example of uniform and independent perturbation of the position coordinates:
+where `thread_idx` is the global thread index, ensuring each thread is associated with a unique random state. To generate a random number, a thread must access its associated state from VRAM. Since the state vector is 6-dimensional, multiple samples have to be drawn. To avoid repeated accesses to the VRAM, the random state is copied to thread-local memory so that subsequent samples are performed efficiently directly from registers. Here is an example of applying a uniform and independent perturbation to the position coordinates:
 
 ```
   // local copy
