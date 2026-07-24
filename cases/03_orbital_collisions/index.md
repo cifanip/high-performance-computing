@@ -158,7 +158,7 @@ $$
 \end{aligned}
 $$
 
-with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of the state vector at the intermediate points $\mathbf{X}_n + h\mathbf{k}_1/2$ and $\mathbf{X}_n + h\mathbf{k}_2/2 \right$.  
+with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of the state vector at the intermediate points $\mathbf{X}_n + h\mathbf{k}_1/2$ and $\mathbf{X}_n + h\mathbf{k}_2/2$.  
 
 
 
