@@ -110,7 +110,7 @@ However, this introduces a tradeoff between the gain in occupancy and the latenc
 | High occupancy - spill overs | 547.61 |
 
 ### Collision count reduction
-Computation of the probability $P_c$ requires a count of the number of collisions that take place within the ensamble of trajectries. Since multiple threads have to update this count for the same collion site, memory races become an issue. A simple remedy is to use atomic sums
+Computation of the probability $P_c$ requires counting the number of collisions that occur within the ensemble of trajectories. Since multiple threads must update this count for the same collision site, memory races become an issue. A simple remedy is to use atomic additions
 
 ```
 if (collided)
@@ -119,7 +119,7 @@ if (collided)
 }
 ```
 
-where a shared counter is updated every time a atomically collision is detected. However, not all threads need calling `atomicAdd`. In fact, threads within a warp may cooperate to the total count and have only a single thread perform the atomic sum, thus reducing by a factor 32 the access to the VRAM memory. An sketch of this implementation is provided below:
+where a shared counter is updated every time a atomically collision is detected. However, not all threads need to call `atomicAdd`. Instead, threads within a warp can cooperate to aggregate the local count, allowing a single thread to perform the global atomic sum. This reduces accesses to global VRAM by a factor of 32. An sketch of this implementation is provided below:
 
 ```
   // 32-bit mask
@@ -140,7 +140,10 @@ where a shared counter is updated every time a atomically collision is detected.
     }
   }
 ```
-In practice, hovwer, since this problem is dominated by computing time, the latter implementation yield negligible speedup. 
+In practice, however, since this algorithm is heavily compute-bound, this memory optimization yields a negligible overall speedup.
+
+### FLOPs count and performance measurament
+
 
 
 
