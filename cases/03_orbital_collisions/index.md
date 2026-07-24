@@ -32,9 +32,10 @@ To estimate $P_c$, we introduce a **Monte Carlo simulation** framework. In parti
 ### Algorithm Outline
 We are given a list of $C$ collision sites containing state vector pairs of orbital objects $\mathbf{x}_0^i(T)$, $\mathbf{x}_1^i(T)$, with $T$ the time of closest approach (TCA). To set up the Monte Carlo sampling, we first back-propagate the sate vectors to an earlier time $t_0 = TCA - \Delta t$. We then generate an ensamble of $N$ realizations for each space object and integrate them forward to $t=TCA$. Physical collisions are detected and recorded across all trajectory pairs, from which a discrete probability of collision $P_c$ is computed. 
 
-## GPU-accelerated implementation
-c
+For our numerical experiments, we employ the following simulation parameters: $C=500$ collision sites; $N=10^4$ realizations; $\Delta t = 12$ minutes. Furthermore, the space objects are assumed to be resident in Low Earth Orbit (LEO). Consequently, we consider a mean orbital radius on the order of $r \approx 7000$ km and an associated orbital velocity of $v \approx 7.5$ km/s.
 
+## GPU-accelerated implementation
+In the following sections, we outline several key implementation aspects to consider for achieving excellent computational performance on a GPU. 
 
 
 
