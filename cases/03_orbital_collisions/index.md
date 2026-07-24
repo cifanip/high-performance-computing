@@ -110,6 +110,15 @@ However, this introduces a tradeoff between the gain in occupancy and the latenc
 | High occupancy - spill overs | 547.61 |
 
 ### Collision count reduction
-To compute the 
+Computation of the probability $P_c$ requires a count of the number of collisions that take place within the ensamble of trajectries. Since multiple threads have to update this count for the same collion site, memory races become an issue. A simple remedy is to use atomic sums
+
+```
+if (collided)
+{
+  atomicAdd(&counter[cid], 1);
+}
+```
+
+where a shared counter is updated every time a atomically collision is detected. However, not all threads need calling `atomicAdd`. In fact, threads within a warp may cooperate to the total count and have only a single thread perform the atomic sum, thus reducing by a factor 32 accesses to the VRAM memory. 
 
 
