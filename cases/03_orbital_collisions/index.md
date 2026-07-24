@@ -158,7 +158,7 @@ $$
 \end{aligned}
 $$
 
-with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of $h/2$ 
+with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of the state vector at point $\mathbf{X}_n + \frac{h}{2}\mathbf{k}_1$
 
 
 
