@@ -102,7 +102,7 @@ This results in about $38$% occupancy. One could, for example, force a kernel of
 ```
 __global__ void __launch_bounds__(256, 4) rk4(...)
 ```
-Then the trade off is in occupancy gain compared to register spill offs. Table 1 shows the computational time for the two cases. Accepting the hard limit of register count appears to be the preferrable choice in practice. Similar tests have shown analogous results. 
+Then the trade off is in occupancy gain compared to register spill offs. The table below shows the computational time for the two cases. Accepting the hard limit of register count appears to be the preferrable choice in practice. Similar tests have shown analogous results. 
 
 | Configuration | Execution Time (ms) |
 | :--- | :--- |
