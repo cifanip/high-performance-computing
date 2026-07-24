@@ -85,4 +85,5 @@ where `thread_idx` is the global thread index, ensuring each thread is associate
   double dzA = curand_uniform_double(&local_state) * 0.2 - 0.1;
 ```
 
+### Occupancy
 
