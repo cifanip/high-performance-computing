@@ -59,6 +59,9 @@ $$
 where the subscript indicates the realization. The full dataset is obtained by concatenating the lists $L^i$:
 
 $$
-\text{DATA} = \lbrace L^0, L^1, L^{2C-1} \rbrace. \qquad (3)
+L = \lbrace L^0, L^1, L^{2C-1} \rbrace. \qquad (3)
 $$
+
+Clearly, each thread in a warp that starts a RK4 iteration will find each coordinate value laid sequentially in memory and thus allowing for efficient memory tranfer. 
+
 
