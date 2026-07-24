@@ -167,7 +167,9 @@ with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ requir
 
 This optimization alone corresponds to a $7$% reduction in the computational cost. Such optimizations are extrimely easy yet very effective. 
 
-Once all multiplies and additions are reduced to the bare minimum, one starts to wonder about **floating point precision**.  
+Once all multiplies and additions are reduced to the bare minimum, one starts to wonder about **floating point precision**. Specifically, in the collision problem is desirable to have precision at least of the order of meters. Recalling that typical Low Earth Orbit radius are $\approx 7000$ km, a FP32 stare vector would be truncated approximately at meter scale. Accumulation of round-off error over thousands of time steps will cause the numerical solution to rapidly drift away from the physics. However, the small displament increments, in this setup of order $\mathcal{O}(1)$, need not necesserly be double precision. This will mainly depend on the number of RK4 time steps to generate the Monte Carlo trajectories. In order to test for the correct behavoiour, we first employ FP64 for all variables. Subsequently, we retain double precision for the state vectors and use single precision to store the derivative functions $\mathbf{f}(X(t))$. 
+
+
 
 
 
