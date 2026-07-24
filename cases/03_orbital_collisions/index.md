@@ -16,13 +16,13 @@ Parallel Programming Stack:
 The orbital collision problem can be stated in classical mechanics as an initial value problem. The objective is to determine whether the trajectories of a pair of spatial objects will intersect in a given time horizon. For this purpose, point-particle dynamics serves as an appropriate model. Let us assume that the satellite's position vector is governed by the following second-order differential equation
 
 $$
-\ddot{\mathbf{r}} = -\frac{\mu}{r^3}\mathbf{r} + \mathbf{a}_{J_2} \qquad (1)
+\ddot{\mathbf{r}} = -\frac{\mu}{r^3}\mathbf{r} + \mathbf{a}_{J_2}, \qquad (1)
 $$
 
 where $\mu$ is the standard gravitational parameter and $\mathbf{a}_{J_2}$ the oblateness perturbation
 
 $$
-\mathbf{a}_{J_2} = -\frac{3}{2} J_2 \left( \frac{\mu R_E^2}{r^5} \right) \left[ \left( 1 - 5\left(\frac{z}{r}\right)^2 \right) \mathbf{r} + 2z \hat{\mathbf{k}} \right]
+\mathbf{a}_{J_2} = -\frac{3}{2} J_2 \left( \frac{\mu R_E^2}{r^5} \right) \left[ \left( 1 - 5\left(\frac{z}{r}\right)^2 \right) \mathbf{r} + 2z \hat{\mathbf{k}} \right],
 $$
 
 with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary oblateness of the planet. Given an initial condition $\mathbf{X}(t_0)=[\mathbf{r}(t_0),\dot{\mathbf{r}(t_0)}]$, equation (1) can be numerically integrated using an ODE solver, such as the **RK4 method** employed in the subsequent sections. However, observations inherently carry uncertainty due to measurement errors. Furthermore, nominal predictions of conjunction events between two objects, $\mathbf{X}$ and $\mathbf{Y}$, are typically affected by modeling errors introduced by the approximate analytical methods used for broad orbital screening. Consequently, the collision problem is fundamentally probabilistic, yielding the probability of collision ($P_c$) as the primary metric of interest.
@@ -41,7 +41,7 @@ In the following sections, we outline several key implementation aspects to cons
 Even though memory bandwidth is not the primary concern in the RK4 method &mdash; which is notoriously compute-bound &mdash; an efficient memory layout is essential to avoid data read/write bottlenecks. Suppose input sate vectors arrive from an observational system as a ordered list:
 
 $$
-\lbrace \mathbf{X}^0(T),\mathbf{X}^1(T),...,\mathbf{X}^{2C-1}(T) \rbrace \qquad (2)
+\lbrace \mathbf{X}^0(T),\mathbf{X}^1(T),...,\mathbf{X}^{2C-1}(T) \rbrace, \qquad (2)
 $$
 
 with the coordinates of an element in the list given by
@@ -53,8 +53,8 @@ $$
 List (2) must be expanded to generate ensambles for the Monte Carlo algorithm. Storing coordinates in a sequence $x,y,z,...,v_z$ as in (2) is not a good layout. Each thread accessing these coordinates from VRAM will have to fetch memory strided by $6$ elements with a consequence waste of cache line. A layout that facilitates **memory coalescence** is constructed by storing values of the same coordinate sequentially. For a single onbject, e.g. $X^0$, we have
 
 $$
-\lbrace \mathbf{x}^0_0,...,\mathbf{x}^0_{N-1},\mathbf{y}^0_0,...,\mathbf{y}^0_{N-1},...,\mathbf{z}^0_{0},...,\mathbf{z}^0_{N-1},... \rbrace 
+L^0 = \lbrace \mathbf{x}^0_0,...,\mathbf{x}^0_{N-1},\mathbf{y}^0_0,...,\mathbf{y}^0_{N-1},...,\mathbf{z}^0_{0},...,\mathbf{z}^0_{N-1},... \rbrace,
 $$
 
-
+where the subscript indicates the realization. 
 
