@@ -30,7 +30,7 @@ with $R_E$ the Earth's radius and $J_2$ a constant that quantifies the primary o
 To estimate $P_c$, we introduce a **Monte Carlo simulation** framework. In particular, we simulate an ensamble of perturbed initial conditions from a given associated covariance matrix $\mathbf{C} \in \mathbb{R}^{6\times 6}$ in a neightborhood of the collision site. Each object pair is evolved by a high-resolutuon RK4 integrator and physical collisions are detected along their paths. 
 
 ### Algorithm Outline
-We are given a list $i=0,...,C-1$ of collision sites containing state vector pairs of orbital objects $\mathbf{x}(t^*)_0^i$, $\mathbf{x}(t^*)_1^i$, with $t^*$ the time of closest approach (TCA).  
+We are given a list $i=0,...,C-1$ of collision sites containing state vector pairs of orbital objects $\mathbf{x}(T)_0^i$, $\mathbf{x}(T)_1^i$, with $T$ the time of closest approach (TCA).  
 
 
 
