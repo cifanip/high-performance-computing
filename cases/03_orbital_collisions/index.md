@@ -140,7 +140,7 @@ where a shared counter is updated every time a atomically collision is detected.
     }
   }
 ```
-
+In practice, hovwer, since this problem is dominated by computing time, the latter implementation yield negligible speedup. 
 
 
 
