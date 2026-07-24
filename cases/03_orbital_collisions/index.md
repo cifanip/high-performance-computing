@@ -104,16 +104,7 @@ __global__ void __launch_bounds__(256, 4) rk4(...)
 ```
 Then the trade off is in occupancy gain compared to register spill offs. Table 1 shows the computational time for the two cases. Accepting the hard limit of register count appears to be the preferrable choice in practice. Similar tests have shown analogous results. 
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{l c}
-\hline
-\textbf{Configuration} & \textbf{Execution Time (ms)} \\
-\hline
-Low occupancy - no spill overs & 14.2 \\
-High occupancy - spill overs & 18.7 \\
-\hline
-\end{tabular}
-\caption{Performance comparison of register allocation strategies.}
-\label{tab:occupancy}
-\end{table}
+| Configuration | Execution Time (ms) |
+| :--- | :--- |
+| Low occupancy - no spill overs | 14.2 |
+| High occupancy - spill overs | 18.7 |
