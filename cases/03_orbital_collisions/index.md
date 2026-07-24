@@ -38,7 +38,7 @@ For our numerical experiments, we employ the following simulation parameters: $C
 In the following sections, we outline several key implementation aspects to consider for achieving excellent computational performance on a GPU. 
 
 ### Memory layout
-
+Even though memory bandwidth is not the primary concern in the RK4 method -- which is notoriously compute-bound -- an efficient memory layout is essential to avoid data read/write bottlenecks.
 
 
 
