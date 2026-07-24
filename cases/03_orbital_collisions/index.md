@@ -37,5 +37,8 @@ For our numerical experiments, we employ the following simulation parameters: $C
 ## GPU-accelerated implementation
 In the following sections, we outline several key implementation aspects to consider for achieving excellent computational performance on a GPU. 
 
+### Memory layout
+
+
 
 
