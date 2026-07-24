@@ -86,4 +86,4 @@ where `thread_idx` is the global thread index, ensuring each thread is associate
 ```
 
 ### Occupancy
-
+The wrokload is organized in a two-dimensional grid, where the first dimension spans $N$ realizations while the second dimension spans $C$ collision sites. 
