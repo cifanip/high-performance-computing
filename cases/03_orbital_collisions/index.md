@@ -70,9 +70,9 @@ Consequently, when the threads in a warp execute an RK4 iteration, consecutive t
 Random sampling of the initial conditions is carried out when expanding the input state vector list (2). First, a one-time initilization of `curandState` objects is executed in a CUDA kernel
 
 ```
-curand_init(seed, idx, 0, &curand_state[idx]);
+curand_init(seed, thread_idx, 0, &curand_state[thread_idx]);
 ```
 
-where `idx` is the global thread index, i.e., each thread is associated to a random state. 
+where `thread_idx` is the global thread index, i.e., each thread is associated to a random state. 
 
 
