@@ -183,7 +183,7 @@ Benchmark                                   Time             CPU   Iterations Us
 BM/10000/500/iterations:10  388237484 ns    387266135 ns           10 TFLOPS=6.52265/s items_per_second=15.4932G/s
 ```
 
-If one accepts the estimation of FLOPs carried out above, then a throughput of $6.5$ TFLOPS is achieved. 
+If one accepts the estimation of FLOPs carried out above, then a throughput of $6.5$ TFLOPS is achieved. If compared with the maximum throughput of the Tesla V100 of $7.5$ TFLOPS, one gets $86$% utilisation. However, the estimation of the FLOPs might be not be so accurate. More realiable is `items_per_second`, which here refers to a single RK4 time-step for a given trajectory. 
 
 
 
