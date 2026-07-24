@@ -90,7 +90,7 @@ The wrokload is organized in a two-dimensional grid, where the first dimension s
 
 The workload is organized into a two-dimensional grid, where the first dimension ($x$) spans the $N$ realizations and the second dimension ($y$) spans the $C$ collision sites. Because a warp consists of 32 threads &mdash; and to preserve the coalesced memory reads detailed in the previous section &mdash; the block dimension along $x$ must be a multiple of 32. We conduct our numerical experiments on an NVIDIA Tesla V100. For this architecture, the maximum number of blocks per Streaming Multiprocessor (SM) is 32, the maximum number of threads per block is 1024, and the absolute maximum number of threads per SM is 2048. 
 
-The most stringent costraint is the number of registers available per thread, here equal to $65,536 / 2048 = 32$ 32-bit registers. An insection using `nvcc -arch=sm_70 --ptxas-options` reveals $85$ registers needed by the main RK4 CUDA kernel:
+The most stringent costraint is the number of registers available per thread, here equal to $65,536 / 2048 = 32$ registers. An insection using `nvcc -arch=sm_70 --ptxas-options` reveals $85$ registers needed by the main RK4 CUDA kernel:
 
 ```
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
