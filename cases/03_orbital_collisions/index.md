@@ -158,7 +158,12 @@ $$
 \end{aligned}
 $$
 
-with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of the state vector at the intermediate points $\mathbf{X}_n + h\mathbf{k}_1/2$ and $\mathbf{X}_n + h\mathbf{k}_2/2$.  
+with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of the state vector at the intermediate points $\mathbf{X}_n + h\mathbf{k}_1/2$ and $\mathbf{X}_n + h\mathbf{k}_2/2$. Below is the computational time in the case of precomputing the factor $h/2$ compared to evaluating for each expression.
+
+| Operation | Execution Time (ms) |
+| :--- | :--- |
+| h/2 not precomputed | 522.31 |
+| h/2 precomputed | 547.61 |
 
 
 
