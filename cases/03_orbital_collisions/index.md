@@ -144,9 +144,9 @@ In practice, however, since this algorithm is heavily compute-bound, this memory
 
 ### FLOPs count, precision and performance measurament
 
-The RK4 kernel consist of a large number of FLOPs and only a handful of access to the VRAM. That is, once the initial state values are read from memory, the integrator evolves forward for thousands of time steps up to the final simulan simulation time before writing the output to VRAM. Counting the exact number of FLOPs is not strainghtfoward since the compiler will perfom aggressive optimisation. An estimate can be deduced from the compiler `nvcc -arch=sm_70 -ptx` counting additions, multiplications and fused multiply-adds. In our implementation, a full RK4 integration, from $t=t_0$ to $t=TCA$ consist of about 500000 FLOPs. In constrast, the number of reads from VRAM is only 12. Clearly, this alrorithm is **compute-bounds**. 
+The RK4 kernel consist of a large number of FLOPs and only a handful of accesses to the VRAM. That is, once the initial state values are read from memory, the integrator evolves forward for thousands of time steps up to the final simulan simulation time before writing the output to VRAM. Counting the exact number of FLOPs is not strainghtfoward since the compiler will perfom aggressive optimisation. An estimate can be deduced from the compiler `nvcc -arch=sm_70 -ptx` by counting additions, multiplications and fused multiply-adds. In our implementation, a full RK4 integration, from $t=t_0$ to $t=TCA$ consist of about 500000 FLOPs. In constrast, the number of reads from VRAM is only 12. Clearly, this alrorithm is **compute-bounds**. 
 
-Any optimization effort should be directed towards reducing as much as possible the number of FLOPs. To start off let's consider a simple but effective example. Consider the RK4 steps solving Eq. (1)
+Any optimization effort should be directed towards reducing the number of FLOPs as much as possible. To start off let's consider a simple but effective example. Consider the RK4 steps solving Eq. (1)
 
 $$
 \begin{aligned}
@@ -158,16 +158,16 @@ $$
 \end{aligned}
 $$
 
-with $h$ the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of the state vector at the intermediate points $\mathbf{X}_n + h\mathbf{k}_1/2$ and $\mathbf{X}_n + h\mathbf{k}_2/2$. Below is the computational time in the case of precomputing the factor $h/2$ compared to evaluating for each expression.
+where $h$ is the time-step size. The slopes $\mathbf{k}_2$ and $\mathbf{k}_3$ require the computation of the state vector at the intermediate points $\mathbf{X}_n + h\mathbf{k}_1/2$ and $\mathbf{X}_n + h\mathbf{k}_2/2$. he table below shows the computational time when precomputing the factor $h/2$ compared to evaluating it within each expression.
 
 | Operation | Execution Time (ms) |
 | :--- | :--- |
 | h/2 not precomputed | 522.31 |
 | h/2 precomputed | 485.80 |
 
-This optimization alone corresponds to a $7$% reduction in the computational cost. Such optimizations are extrimely easy yet very effective. 
+This optimization alone corresponds to a 7% reduction in computational cost. Such optimizations are extrimely easy yet very effective. 
 
-Once all multiplies and additions are reduced to the bare minimum, one starts to wonder about **floating point precision**. Specifically, in the collision problem is desirable to have precision at least of the order of meters. Recalling that typical Low Earth Orbit radius are $\approx 7000$ km, a FP32 stare vector would be truncated approximately at meter scale. Accumulation of round-off error over thousands of time steps will cause the numerical solution to rapidly drift away from the physics. However, the small displament increments, in this setup of order $\mathcal{O}(1)$, need not necesserly be double precision. This will mainly depend on the number of RK4 time steps to generate the Monte Carlo trajectories. In order to test for the correct behavoiour, we first employ FP64 for all variables. Subsequently, we retain double precision for the state vectors and use single precision to store the derivative functions $\mathbf{f}(X(t))$. The measured difference at the final time is of the order of $10^{-1}$ meters, which we deem acceptable for this application. The table below shows the computational time for full double precision and for mixed precision. 
+Once all multiplications and additions are reduced to the bare minimum, one must consider **floating-point precision**. Specifically, for the collision problem, it is desirable to maintain precision at the meter level. Recalling that a typical Low Earth Orbit radius is roughly $7000$ km, a FP32 stare vector would be truncated at approximately the meter scale. The accumulation of round-off error over thousands of time steps will cause the numerical solution to rapidly drift away from the physical trajectory. However, the small displament increments, in this setup of order $\mathcal{O}(1)$, do not necesserly require double precision. This viability mainly depends on the number of RK4 time steps used to generate the Monte Carlo trajectories. o test for correct behavior, we first employ FP64 for all variables. Subsequently, we retain double precision for the state vectors and use single precision to store the derivative functions $\mathbf{f}(X(t))$. The measured difference at the final time is of the order of $10^{-1}$ meters, which we deem acceptable for this application. The table below compares the computational time for full double precision versus mixed precision.
 
 | FP precision | Execution Time (ms) |
 | :--- | :--- |
@@ -183,7 +183,7 @@ Benchmark                                   Time             CPU   Iterations Us
 BM/10000/500/iterations:10  388237484 ns    387266135 ns           10 TFLOPS=6.52265/s items_per_second=15.4932G/s
 ```
 
-If one accepts the estimation of FLOPs carried out above, then a throughput of $6.5$ TFLOPS is achieved. If compared with the maximum throughput of the Tesla V100 of $7.5$ TFLOPS, one gets $86$% utilisation. However, the estimation of the FLOPs might be not be so accurate. More realiable is `items_per_second`, which here refers to a single RK4 time-step for a given trajectory. 
+If one accepts the estimation of FLOPs carried out above, then a throughput of $6.5$ TFLOPS is achieved. If compared with the maximum throughput of the Tesla V100 of $7.5$ TFLOPS, one gets $86$% utilisation. However, the estimation of the FLOPs might be not be so accurate. More realiable is `items_per_second`, which here refers to a single RK4 time-step for a given trajectory. This corresponds to about $1300$ collisions per second. 
 
 
 
