@@ -67,7 +67,7 @@ $$
 Consequently, when the threads in a warp execute an RK4 iteration, consecutive threads fetch consecutive coordinate values. This contiguous alignment guarantees coalesced memory transactions, maximizing VRAM bandwidth utilization.
 
 ### Random sampling
-Random sampling of the initial conditions is carried out when expanding the input state vector list (2). First, a one-time initilization of \texttt{curandState} objects is executed in a CUDA kernel
+Random sampling of the initial conditions is carried out when expanding the input state vector list (2). First, a one-time initilization of `curandState` objects is executed in a CUDA kernel
 
 ```
 curand_init(seed, idx, 0, &curand_state[idx]);
