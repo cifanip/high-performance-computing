@@ -44,5 +44,5 @@ $$
 X(T) = \lbrace \mathbf{x}_0^1(T), \rbrace 
 $$
 
-
+c
 
