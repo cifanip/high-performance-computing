@@ -86,6 +86,8 @@ where `thread_idx` is the global thread index, ensuring each thread is associate
 ```
 
 ### Occupancy
-The wrokload is organized in a two-dimensional grid, where the first dimension spans $N$ realizations while the second dimension spans $C$ collision sites. Given a warp has $32$ threads, and the coalsced memory reads (see previous section), the block dimension along $x$ should be at least $32$. We conduct numerical experiments on a **NVIDIA Testla V100**. The maximum number of blocks per SM is 32, while the maximum number of threads per block is 1024 with an overall maximum number fo threads per SM of 248 threads. 
+The wrokload is organized in a two-dimensional grid, where the first dimension spans $N$ realizations while the second dimension spans $C$ collision sites. Given a warp has $32$ threads, and the coalsced memory reads (see previous section), the block dimension along $x$ should be at least $32$. We conduct numerical experiments on a **NVIDIA Testla V100**. The maximum number of blocks per SM is 32, while the maximum number of threads per block is 1024 with an overall maximum number fo threads per SM of 2028.
+
+The workload is organized into a two-dimensional grid, where the first dimension ($x$) spans the $N$ realizations and the second dimension ($y$) spans the $C$ collision sites. Because a warp consists of 32 threads &mdash; and to preserve the coalesced memory reads detailed in the previous section &mdash; the block dimension along $x$ must be a multiple of 32. We conduct our numerical experiments on an NVIDIA Tesla V100. For this architecture, the maximum number of blocks per Streaming Multiprocessor (SM) is 32, the maximum number of threads per block is 1024, and the absolute maximum number of threads per SM is 2048. 
 
 c
