@@ -142,7 +142,7 @@ where a shared counter is updated every time a atomically collision is detected.
 ```
 In practice, however, since this algorithm is heavily compute-bound, this memory optimization yields a negligible overall speedup.
 
-### FLOPs count and performance measurament
+### FLOPs count, precision and performance measurament
 
 The RK4 kernel consist of a large number of FLOPs and only a handful of access to the VRAM. That is, once the initial state values are read from memory, the integrator evolves forward for thousands of time steps up to the final simulan simulation time before writing the output to VRAM. Counting the exact number of FLOPs is not strainghtfoward since the compiler will perfom aggressive optimisation. An estimate can be deduced from the compiler `nvcc -arch=sm_70 -ptx` counting additions, multiplications and fused multiply-adds. In our implementation, a full RK4 integration, from $t=t_0$ to $t=TCA$ consist of about 500000 FLOPs. In constrast, the number of reads from VRAM is only 12. Clearly, this alrorithm is **compute-bounds**. 
 
