@@ -41,7 +41,7 @@ In the following sections, we outline several key implementation aspects to cons
 Even though memory bandwidth is not the primary concern in the RK4 method &mdash; which is notoriously compute-bound &mdash; an efficient memory layout is essential to avoid data read/write bottlenecks. Suppose input sate vectors arrive from an observational system as a ordered list:
 
 $$
-\lbrace \mathbf{x}_0^1(T),\mathbf{y}_0^1(T),\mathbf{z}_0^1(T),\mathbf{v_x}_0^1(T),\mathbf{v_y}_0^1(T),\mathbf{v_z}_0^1(T) \rbrace 
+\lbrace \mathbf{x}^0(T),\mathbf{y}^0(T),\mathbf{z}^0(T),\mathbf{v_x}^0(T),\mathbf{v_y}^0(T),\mathbf{v_z}^0(T) \rbrace 
 $$
 
 c
