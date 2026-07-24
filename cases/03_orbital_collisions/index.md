@@ -50,4 +50,11 @@ $$
 \mathbf{X}^i(T) = [ \mathbf{x}^i(T),\mathbf{y}^i(T),\mathbf{z}^i(T),\mathbf{v_x}^i(T),\mathbf{v_y}^i(T),\mathbf{v_z}^i(T) ].
 $$
 
+List (2) must be expanded to generate ensambles for the Monte Carlo algorithm. Storing coordinates in a sequence $x,y,z,...,v_z$ as in (2) is not a good layout. Each thread accessing these coordinates from VRAM will have to fetch memory strided by $6$ elements with a consequence waste of cache line. A layout that facilitates **memory coalescence** is illustrated in the following. Consider first the object $\mathbf{X}^0(T)$:
+
+$$
+\lbrace \mathbf{x}^0_0,...,\mathbf{x}^0_{N-1},\mathbf{y}^0_0,...,\mathbf{z}^0_0,...,\mathbf{z}^0_{N-1},... \rbrace 
+$$
+
+
 
