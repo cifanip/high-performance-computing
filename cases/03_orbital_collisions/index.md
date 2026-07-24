@@ -97,7 +97,13 @@ The most stringent costraint is the number of registers available per thread, he
 ptxas info    : Used 85 registers, 408 bytes cmem[0], 24 bytes cmem[2]
 ```
 
-This results in about $38$% occupancy. 
+This results in about $38$% occupancy. One could, for example, force a kernel of $256$ threads per block to hit $50$% occupancy by requesting exaclty $4$ blocks
+
+```
+__global__ void __launch_bounds__(256, 4) rk4(...)
+```
+
+
 
 
 c
