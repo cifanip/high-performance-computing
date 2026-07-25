@@ -12,7 +12,7 @@ Parallel Programming Stack:
 * cuRAND
 
 <figure align="center">
-  <img src="figures/paths.png" width="300">
+  <img src="figures/paths.png" width="500">
   <figcaption>
     <b>Figure 1.</b> . An illustration of orbital trajectories for $10$ collision junctions. Each pair of orbital paths is represented by a color, a full line and a dashed line. Those who collide are colored in red. Those who do not collide are colored in sevral shades of blue. In the actual simulation hundreads of collision cites and tens of thousands of paths are computed simulataneusly. 
 </figcaption>
