@@ -11,6 +11,13 @@ Parallel Programming Stack:
 * CUDA
 * cuRAND
 
+<figure align="center">
+  <img src="figures/paths.png" width="300">
+  <figcaption>
+    <b>Figure 1.</b> . An illustration of orbital trajectories for $10$ collision junctions. Each pair of orbital paths is represented by a color, a full line and a dashed line. Those who collide are colored in red. Those who do not collide are colored in sevral shades of blue. In the actual simulation hundreads of collision cites and tens of thousands of paths are computed simulataneusly. 
+</figcaption>
+</figure>
+
 ## 1. Problem setup
 
 The orbital collision problem can be stated in classical mechanics as an initial value problem. The objective is to determine whether the trajectories of a pair of spatial objects will intersect in a given time horizon. For this purpose, point-particle dynamics serves as an appropriate model. Let us assume that the satellite's position vector is governed by the following second-order differential equation
