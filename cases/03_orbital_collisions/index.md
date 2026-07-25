@@ -5,7 +5,7 @@ layout: default
 
 # Orbital Collision Simulator
 
-This section details a **GPU-accelerated** simulator of **orbital collisions**. Memory layout, register pressure and computational perfomance are illustreated. 
+This section details a **GPU-accelerated** simulator of **orbital collisions**. Specifically, it examines memory layout and register occupancy, details the shift to a mixed-precision solver to reduce FLOP overhead, and evaluates the resulting computational throughput.
 
 Parallel Programming Stack:
 * CUDA
