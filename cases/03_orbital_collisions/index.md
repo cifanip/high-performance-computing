@@ -9,7 +9,7 @@ This section details a **GPU-accelerated** simulator of **orbital collisions**. 
 
 Parallel Programming Stack:
 * CUDA
-* cuRAND
+* cuRAND [^1]
 
 <figure align="center">
   <img src="figures/paths.png" width="500">
@@ -192,4 +192,4 @@ BM/10000/500/iterations:10  388237484 ns    387266135 ns           10 TFLOPS=6.5
 
 If one accepts the FLOP estimation calculated above, a throughput of $6.5$ TFLOPS is achieved. Compared to the Tesla V100's maximum theoretical throughput of $7.5$ TFLOPS, this translates to roughly an 86% hardware utilization. However, because static FLOP estimations might not be perfectly accurate, a more reliable metric is items_per_second. In this context, a single item represents one RK4 time-step for a given trajectory, translating to a measured throughput of roughly $15 \times 10^9$ time-steps per second. This total throughput corresponds to evaluating about $1300$ full collisions per second for $N=10^4$ realizations. Overall, these results represent a highly efficient implementation that makes excellent use of the available hardware compute power.
 
-
+[^1]: NVIDIA Corporation. "cuRAND Library." NVIDIA Documentation, 2026. Available at: [https://docs.nvidia.com/cuda/curand/index.html](https://docs.nvidia.com/cuda/curand/index.html).
