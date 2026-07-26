@@ -12,7 +12,7 @@ Parallel Programming Stack:
 * cuRAND [^1]
 
 <figure align="center">
-  <img src="figures/paths.png" width="1000">
+  <img src="figures/paths.png" width="100%">
   <figcaption>
     <b>Figure 1.</b> An illustration of orbital trajectories for $100$ collision junctions. Each orbital path is represented by a gray line, with its end position marked by a dot. Red dots indicate collisions, while blue dots represent safe, non-colliding paths. In the actual simulation, hundreds of collision sites and tens of thousands of paths are computed simultaneously.
 </figcaption>
